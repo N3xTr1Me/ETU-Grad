@@ -1,4 +1,4 @@
-from ..signals import ResponseQueue, SignalResponse
+from ..signals import ResponseQueue, Signal, SignalResponse
 from .aircraft import Aircraft
 
 from typing import List
@@ -45,18 +45,21 @@ class Environment:
             aircraft.get_second_channel_energy()    # Энергия по второму каналу обработки.
         )
 
-    def send_signal(self, period: int, t: int) -> None:
+    def send_signal(self, original: Signal, t: int) -> None:
 
         # Сигнал отражается от всех существующих самолетов.
         for aircraft in self.__objects:
 
-            response_signal = self.create_response(period, t, aircraft)
+            if original.beam.in_range(aircraft.get_angle()):
 
-            self.__responses.insert(
-                response_signal,
-                round(response_signal.true_delay)
-            )
+                response_signal = self.create_response(original.period, t, aircraft)
 
+                self.__responses.insert(
+                    response_signal,
+                    round(response_signal.true_delay)
+                )
+
+    def move_responses(self) -> None:
         # ВСЕ сигналы в очереди перемещаются в пространстве.
         self.__responses.travel()
 

@@ -1,4 +1,4 @@
-from .signal_response import SignalResponse
+from .signal_data import SignalResponse
 
 from dataclasses import dataclass
 from typing import List

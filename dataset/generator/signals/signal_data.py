@@ -1,4 +1,13 @@
+from dataset.generator.radar.beams import Beam
+
 from dataclasses import dataclass
+
+
+@dataclass(init=True)
+class Signal:
+
+    beam: Beam
+    period: int
 
 
 @dataclass(init=True)

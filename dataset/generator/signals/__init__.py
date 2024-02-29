@@ -1,4 +1,4 @@
-from .signal_response import SignalResponse
+from .signal_data import Signal, SignalResponse
 from .response_queue import ResponseQueue
 
-__all__ = ["SignalResponse", "ResponseQueue"]
+__all__ = ["Signal", "SignalResponse", "ResponseQueue"]
