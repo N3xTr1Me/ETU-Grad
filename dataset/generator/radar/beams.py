@@ -3,7 +3,9 @@ from typing import List
 
 class Beam:
 
-    def __init__(self, direction_angle: float, delta: float = 1.5) -> None:
+    def __init__(self, number: int, direction_angle: float, delta: float = 1.5) -> None:
+
+        self.__id = number
 
         self.__lower_range = direction_angle - delta
         self.__upper_range = direction_angle + delta
@@ -16,6 +18,10 @@ class Beam:
 
         return False
 
+    def get_id(self) -> int:
+
+        return self.__id
+
 
 class BeamFactory:
 
@@ -26,8 +32,9 @@ class BeamFactory:
 
         for direction in range(n):
 
+            # В данном случае нумерация лучей совпадает с их центральным угловым направлением (бисектриса угла).
             beams.append(
-                Beam(direction)
+                Beam(direction, direction)
             )
 
         return beams

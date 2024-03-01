@@ -31,12 +31,13 @@ class Environment:
 
         return 2 * distance / self.Config.light_speed
 
-    def create_response(self, period: int, t: int, aircraft: Aircraft) -> SignalResponse:
+    def create_response(self, period: int, beam_id: int, t: int, aircraft: Aircraft) -> SignalResponse:
 
         true_dist = aircraft.true_distance(t)
 
         return SignalResponse(
             period,                                 # Период сигнала.
+            beam_id,                                # Номер луча.
             self.get_delay(true_dist),              # Задержка до получения сигнала радаром.
             self.get_delay(true_dist % period),     # Задержка, поделенная на период сигнала.
             aircraft.get_speed(),                   # Скорость самолета.
@@ -47,12 +48,17 @@ class Environment:
 
     def send_signal(self, original: Signal, t: int) -> None:
 
-        # Сигнал отражается от всех существующих самолетов.
+        # Сигнал отражается только от самолетов, которые находятся в пределах определенного угла.
         for aircraft in self.__objects:
 
             if original.beam.in_range(aircraft.get_angle()):
 
-                response_signal = self.create_response(original.period, t, aircraft)
+                response_signal = self.create_response(
+                    original.period,
+                    original.beam.get_id(),
+                    t,
+                    aircraft
+                )
 
                 self.__responses.insert(
                     response_signal,
