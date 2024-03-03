@@ -1,12 +1,12 @@
-from dataset.generator.radar.beams import Beam
-
 from dataclasses import dataclass
+
+from typing import List
 
 
 @dataclass(init=True)
 class Signal:
 
-    beam: Beam
+    beam: "Beam"
     period: int
 
 
@@ -30,3 +30,9 @@ class SignalResponse:
 
     u_first: float      # Энергия сигнала в первом канале.
     u_second: float     # Энергия сигнала во втором канале.
+
+
+@dataclass(init=True)
+class TravelingSignal:
+    data: List[SignalResponse]
+    arrives_in: int
