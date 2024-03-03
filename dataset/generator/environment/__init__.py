@@ -1,3 +1,3 @@
-from .environment import Environment
+from .environment import Aircraft, Environment
 
-__all__ = ["Environment"]
+__all__ = ["Aircraft", "Environment"]
