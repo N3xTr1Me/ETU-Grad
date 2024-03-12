@@ -27,12 +27,12 @@ class Environment:
         return SignalResponse(
             period,                                 # Период сигнала.
             beam_id,                                # Номер луча.
-            self._get_delay(true_dist),             # Задержка до получения сигнала радаром.
             self._get_delay(true_dist) % period,    # Задержка, поделенная на период сигнала.
             aircraft.get_speed(),                   # Скорость самолета.
             aircraft.get_angle(),                   # Угол, относительно радара.
             aircraft.get_first_channel_energy(),    # Энергия по первому каналу обработки.
-            aircraft.get_second_channel_energy()    # Энергия по второму каналу обработки.
+            aircraft.get_second_channel_energy(),   # Энергия по второму каналу обработки.
+            self._get_delay(true_dist),             # Задержка до получения сигнала радаром.
         )
 
     def send_signal(self, period: int, beam: Beam, t: int) -> None:
