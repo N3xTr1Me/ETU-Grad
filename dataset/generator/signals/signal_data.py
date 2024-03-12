@@ -4,13 +4,6 @@ from typing import List
 
 
 @dataclass(init=True)
-class Signal:
-
-    beam: "Beam"
-    period: int
-
-
-@dataclass(init=True)
 class SignalResponse:
 
     """
