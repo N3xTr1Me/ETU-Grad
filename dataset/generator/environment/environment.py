@@ -17,7 +17,8 @@ class Environment:
 
     def _get_delay(self, distance: int) -> float:
 
-        return distance / 150
+        # А здесь уже дискреты: 1 - это 15 метров.
+        return distance / 15
 
     def _create_response(self, period: int, beam_id: int, t: int, aircraft: Aircraft) -> SignalResponse:
 
@@ -26,8 +27,8 @@ class Environment:
         return SignalResponse(
             period,                                 # Период сигнала.
             beam_id,                                # Номер луча.
-            self._get_delay(true_dist),              # Задержка до получения сигнала радаром.
-            self._get_delay(true_dist) % period,     # Задержка, поделенная на период сигнала.
+            self._get_delay(true_dist),             # Задержка до получения сигнала радаром.
+            self._get_delay(true_dist) % period,    # Задержка, поделенная на период сигнала.
             aircraft.get_speed(),                   # Скорость самолета.
             aircraft.get_angle(),                   # Угол, относительно радара.
             aircraft.get_first_channel_energy(),    # Энергия по первому каналу обработки.
@@ -51,7 +52,7 @@ class Environment:
                 self.__responses.push_signal(
                     response_signal,
                     beam.get_id(),
-                    round(response_signal.true_delay)
+                    round(response_signal.true_delay / 10_000_000)  # в одной секунде 10.000.000 тактов
                 )
 
     def get_response(self, beam: Beam) -> List[SignalResponse]:
