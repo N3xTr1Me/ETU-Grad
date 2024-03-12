@@ -29,7 +29,7 @@ class DeadZone:
         remainder = distance % period
 
         # Првоерим не входит ли остаток в мертвую зону около первого периода или в мертвую зону около нуля.
-        if period - bounds[0] <= remainder <= period + bounds[1] or remainder <= bounds[1]:
+        if period - bounds[0] <= remainder < period or remainder <= bounds[1]:
             return True
 
         return False
